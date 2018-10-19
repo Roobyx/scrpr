@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as soup
-import urllib.request as uReq
-from urllib.request import urlopen as uOpen
+# import urllib.request as uReq
+import urllib.request
+# from urllib.request import urlopen as urllib.request.urlopen
 import codecs
 import time
 from datetime import date
@@ -57,15 +58,15 @@ for cat in url_category:
 
 	def get_page_count(page_url):
 		try:
-			u_req_client = uOpen(page_url)
+			u_req_client = urllib.request.urlopen(page_url)
 			pages_raw_html = u_req_client.read()
 			u_req_client.close()
 		except urllib.request.error.HTTPError:
 			# if err.code == 511:
 			print('Check browser for captcha')
-			webbrowser.open_new(url_to_scrape)
+			webbrowser.open_new(page_url)
 			wait()
-			u_client = uOpen(url_to_scrape)
+			u_client = urllib.request.urlopen(page_url)
 			# else:
 			# 	raise
 
@@ -111,14 +112,15 @@ for cat in url_category:
 
 		# Get html
 		try:
-			u_client = uOpen(url_to_scrape)
+			u_client = urllib.request.urlopen(url_to_scrape)
 		# except uReq.error.HTTPError as err:
-		except urllib.error.HTTPError:
+		except urllib.request.error.HTTPError:
+		# except Exception, e:
 			# if err.code == 511:
 			print('Check browser for captcha')
 			webbrowser.open_new(url_to_scrape)
 			wait()
-			u_client = uOpen(url_to_scrape)
+			u_client = urllib.request.urlopen(url_to_scrape)
 			# else:
 			# 	raise
 
